@@ -1,4 +1,4 @@
-RaspiCam Documentation
+# RaspiCam Documentation
 
 This document describes the use of the three Raspberry Pi camera applications as of October 11th 2013.
 
@@ -15,7 +15,7 @@ In addition it is possible to omit the filename option, in which case the previe
 Command line help is available by typing just the application name in on the command line.
 
 
-Setting up the Camera hardware
+## Setting up the Camera hardware
 
 
 Warning. Cameras are static sensitive. Earth yourself prior to handling the PCB, a sink tap/faucet or similar should suffice if you don't have an earthing strap.
@@ -23,26 +23,32 @@ The camera board attaches to the Raspberry Pi via a 15 way ribbon cable. There a
 
 Although the connectors on the PCB and the Pi are different, they work in a similar way. On the Raspberry Pi, pull up the tabs on each end of the connector. It should slide up easily, and be able to pivot around slightly. Fully insert the ribbon cable into the slot, ensuring it is straight, then gently press down the tabs to clip it into place. The camera PCB itself also requires you to pull the tabs away from the board, gently insert the cable, then push the tabs back. The PCB connector is a little more awkward than the one on the Pi itself. 
 
-Setting up the Camera software
+## Setting up the Camera software
 
 Execute the following instructions on the command line to download and install the latest kernel,  GPU firmware and applications. You will need a internet connection for this to work correctly.
 
+```
 sudo apt-get update
 sudo apt-get upgrade
+```
 
 Now you need to enable camera support using the raspi-config program you will have used when you first set up your Raspberry Pi.
 
+```
 sudo raspi-config
+```
 
 Use the cursor keys to move to the camera option and select enable. On exiting raspi-config it will ask to reboot. The enable option will ensure that on reboot the correct GPU firmware will be running (with the camera driver and tuning), and the GPU memory split is sufficient to allow the camera to acquire enough memory to run correctly. 
 
 To test that the system is installed and working, try the following command : 
 
+```
 raspistill -v -o test.jpg
+```
 
 The display should show a 5 second preview from the camera and then take a picture, saved to the file test.jpg, whilst display various informational messages.
 
-Troubleshooting
+## Troubleshooting
 
 If the camera is not working correctly, there are number of things to try. 
 Are the ribbon connectors all firmly seated and the right way round? They must be straight in their sockets.
@@ -53,98 +59,123 @@ Is your power supply sufficient? The camera adds about 200-250mA to the power re
 
 So, if things are still not working, try the following:
 
-Error : raspistill/raspivid not found. This probably means your update/upgrade failed in some way. Try it again.
+> Error : raspistill/raspivid not found. This probably means your update/upgrade failed in some way. Try it again.
 
-Error : ENOMEM displayed. Camera is not starting up. Check all connections again. 
+> Error : ENOMEM displayed. Camera is not starting up. Check all connections again. 
 
-Error : ENOSPC displayed. Camera is probably running out of GPU memory. Check config.txt in the /boot/ folder. The gpu_mem option should be at least 128.
+> Error : ENOSPC displayed. Camera is probably running out of GPU memory. Check config.txt in the /boot/ folder. The gpu_mem option should be at least 128.
 
 If after all the above, the camera is still not working, it may be defective. Try posting on the Raspberry Pi forum (Camera section) to see if there is any more help available there.
 
-Common Command line Options
-Preview Window
+## Common Command line Options
+### Preview Window
 
-
+```
 	--preview,	-p   	Preview window settings <'x,y,w,h'>
+```
 
 Allows the user to define the size and location on the screen that the preview window will be placed. Note this will be superimposed over the top of any other windows/graphics.
 
+```
 	--fullscreen, 	-f	Fullscreen preview mode
+```
 
 Forces the preview window to use the whole screen. Note that the aspect ratio of the incoming image will be retained, so there may be bars on some edges.
 
+```
 	--nopreview,  	-n,	Do not display a preview window
+```
 
 Disables the preview window completely. Note that even though the preview is disabled, the camera will still be producing frames, so will be using power.
 
+```
 	--opacity, 	-op	Set preview window opacity
+```
 
 Sets the opacity of the preview windows. 0 = invisible, 255 = fully opaque.
 
-Camera Control Options
+## Camera Control Options
 
-
+```
 	--sharpness, 	-sh 	Set image sharpness (-100 to 100)
+```
 
 Set the sharpness of the image, 0 is the default.
 
+```
 	--contrast,	-co 	Set image contrast (-100 to 100)
+```
 
 Set the contrast of the image, 0 is the default
 
+```
 	--brightness,	-br	Set image brightness (0 to 100)
+```
 
 Set the brightness of the image, 50 is the default. 0 is black, 100 is white.
 
+```
 	--saturation,	-sa	Set image saturation (-100 to 100)
+```
 
 set the colour saturation of the image. 0 is the default.
 
+```
 	--ISO,       	-ISO	Set capture ISO
+```
 
 Sets the ISO to be used for captures. Range is 100 to 800.
+```
 	--vstab,     	-vs  	Turn on video stabilisation
+```
 
 In video mode only, turn on video stabilisation.
 
+```
 	--ev,        	-ev  	Set EV compensation
+```
 
 Set the EV compensation of the image. Range is -10 to +10, default is 0.
 
+```
 	--exposure,  	-ex 	Set exposure mode 
+```
 
 Possible options are: 
 
-auto 		Use automatic exposure mode
-night 		Select setting for night shooting
-nightpreview
-backlight 	Select setting for back lit subject
-spotlight		
-sports		Select setting for sports (fast shutter etc)
-snow		Select setting optimised for snowy scenery
-beach		Select setting optimised for beach
-verylong	Select setting for long exposures
-fixedfps,	Constrain fps to a fixed value
-antishake	Antishake mode
-fireworks	Select settings
+``auto``		Use automatic exposure mode
+``night`` 		Select setting for night shooting
+``nightpreview``
+``backlight`` 	Select setting for back lit subject
+``spotlight``		
+``sports``		Select setting for sports (fast shutter etc)
+``snow``		Select setting optimised for snowy scenery
+``beach``		Select setting optimised for beach
+``verylong``	Select setting for long exposures
+``fixedfps,``	Constrain fps to a fixed value
+``antishake``	Antishake mode
+``fireworks``	Select settings
 
 Note that not all of these settings may be implemented, depending on camera tuning.
 
+```
 	--awb,		-awb 	Set Automatic White Balance (AWB) mode
+```
 
-off      		Turn off white balance calculation
-auto       	Automatic mode (default)
-sun         	Sunny mode
-cloud       	Cloudy mode
-shade       	Shaded mode
-tungsten	Tungsten lighting mode
-fluorescent	Fluorescent	lighting mode	
-incandescent   	Incandescent lighting mode
-flash   		Flash mode
-horizon		Horizon mode
+``off``      		Turn off white balance calculation
+``auto``       	Automatic mode (default)
+``sun``         	Sunny mode
+``cloud``       	Cloudy mode
+``shade``       	Shaded mode
+``tungsten``	Tungsten lighting mode
+``fluorescent``	Fluorescent lighting mode	
+``incandescent``   	Incandescent lighting mode
+``flash``   		Flash mode
+``horizon``		Horizon mode
 
+```
 	--imxfx,     	-ifx	Set image effect
-
+```
 Set an effect to be applied to the image
 
 none		NO effect (default)
@@ -171,25 +202,32 @@ colourpoint	Not fully implemented
 colourbalance	Not fully implemented
 cartoon	    	Not fully implemented
 
+```
 	--colfx,    	 -cfx	Set colour effect <U:V>
+```
 
 The supplied U and V parameters (range 0 to 255) are applied to the U and Y channels of the image. For example, --colfx 128:128 should result in a monochrome image.
 
+```
 	--metering,  	-mm	Set metering mode
+```
 
 Specify the metering mode used for the preview and capture
 
-average	Average the whole frame for metering.
-spot		Spot metering
-backlit		Assume a backlit image
-matrix		Matrix metering
+``average``	Average the whole frame for metering.
+``spot``		Spot metering
+``backlit``		Assume a backlit image
+``matrix``		Matrix metering
 
+```
 	--rotation,  	 -rot  Set image rotation (0-359)
+```
 
 Sets the rotation of the image in viewfinder and resulting image. This can take any value from 0 upwards, but due to hardware constraints only 0, 90, 180 and 270 degree rotations are supported.
 
-
+```
 	--hflip,  		-hf 	Set horizontal flip
+```
 
 Flips the preview and saved image horizontally.
 
@@ -197,47 +235,55 @@ Flips the preview and saved image horizontally.
 
 Flips the preview and saved image vertically.
 
+```
 	--roi,		-roi	Set sensor region of interest 
+```
 
 Allows the specification of the area of the sensor to be used as the source for the preview and capture. This is defined as x,y for the top left corner, and a width and height, all values in normalised coordinates (0.0-1.0). So to set a ROI at half way across and down the sensor, and an width and height of a quarter of the sensor use :
 
+```
 		-roi 0.5,0.5,0.25,0.25
-
+```
+```
 	--shutter,	-ss	Set shutter speed
+```
 
 Set the shutter speed to the specified value (in microseconds). There is currently an upper limit of approximately 330000us (330ms, 0.33s) past which operation is undefined. This is being investigated.
 
-	--camselect,   	-cs	Select <camera number>
+``--camselect``,   	``-cs``	Select <camera number>
+
 
 Select camera number. Default 0
 
-Application specific settings
+## Application specific settings
 
+```
 raspistill
+```
 
---width,		-w		Set image width <size>
---height,	-h		Set image height <size>
---quality,  	-q		Set jpeg quality <0 to 100>
+``--width``,		``-w``		Set image width <size>
+``--height``,	``-h``		Set image height <size>
+``--quality``,  	``-q``		Set jpeg quality <0 to 100>
 
 Quality 100 is almost completely uncompressed. 75 is a good all round value
 
-	--raw,		-r		Add raw bayer data to jpeg metadata
+``--raw``, ``-r``		Add raw bayer data to jpeg metadata
 
 This option inserts the raw Bayer data from the camera in to the JPEG metadata
 
-	--output	-o		Output filename <filename>.
+``--output``, ``-o``		Output filename <filename>.
 
 Specify the output filename. If not specified, no file is saved. If the filename is '-', then all output is sent to stdout.
 
-	--latest		-l		Link latest frame to filename <filename>
+``--latest``, ``-l``		Link latest frame to filename <filename>
 
 Make a file system link under this name to the latest frame.
 
-	--verbose,	-v		Output verbose information during run
+``--verbose``, ``-v``		Output verbose information during run
 
 Outputs debugging/information messages during the program run.
 
-	--timeout,	-t		Time before takes picture and shuts down.
+``--timeout``, ``-t``		Time before takes picture and shuts down.
 
 The program will run for this length of time, then take the capture (if output is specified). If not specified, this is set to 5 seconds. 
 
