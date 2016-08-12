@@ -1,5 +1,11 @@
 * [RaspiCam Documentation](#raspicam-documentation)
   * [Setting up the Camera Hardware](#setting-up-the-camera-hardware)
+  * [Setting up the Camera Software](#setting-up-the-camera-software)
+  * [Troubleshooting](#troubleshooting)
+  * [Common Command Line Options](#common-command-line-options)
+    * [Preview Window](#preview-window)
+    * [Camera Control Options](#camera-control-options)
+  
 # RaspiCam Documentation
 
 This document describes the use of the three Raspberry Pi camera applications as of October 11th 2013.
@@ -19,8 +25,8 @@ Command line help is available by typing just the application name in on the com
 
 ## Setting up the Camera hardware
 
+> Warning. Cameras are static sensitive. Earth yourself prior to handling the PCB, a sink tap/faucet or similar should suffice if you don't have an earthing strap.
 
-Warning. Cameras are static sensitive. Earth yourself prior to handling the PCB, a sink tap/faucet or similar should suffice if you don't have an earthing strap.
 The camera board attaches to the Raspberry Pi via a 15 way ribbon cable. There are only two connections to make, the ribbon cable need to be attached to the camera PCB and the Raspberry Pi itself. You need to get it the right way round or the camera will not work. On the camera PCB, the blue backing on the cable should be away from the PCB, and on the Raspberry Pi it should be towards the Ethernet connection (or where the Ethernet connector would be if you are using a model A).
 
 Although the connectors on the PCB and the Pi are different, they work in a similar way. On the Raspberry Pi, pull up the tabs on each end of the connector. It should slide up easily, and be able to pivot around slightly. Fully insert the ribbon cable into the slot, ensuring it is straight, then gently press down the tabs to clip it into place. The camera PCB itself also requires you to pull the tabs away from the board, gently insert the cable, then push the tabs back. The PCB connector is a little more awkward than the one on the Pi itself. 
@@ -96,7 +102,7 @@ Disables the preview window completely. Note that even though the preview is dis
 
 Sets the opacity of the preview windows. 0 = invisible, 255 = fully opaque.
 
-## Camera Control Options
+### Camera Control Options
 
 ```
 	--sharpness, 	-sh 	Set image sharpness (-100 to 100)
