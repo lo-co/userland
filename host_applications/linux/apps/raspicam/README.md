@@ -1,3 +1,5 @@
+* [RaspiCam Documentation](#raspicam-documentation)
+  * [Setting up the Camera Hardware](#setting-up-the-camera-hardware)
 # RaspiCam Documentation
 
 This document describes the use of the three Raspberry Pi camera applications as of October 11th 2013.
